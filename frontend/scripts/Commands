@@ -1,0 +1,134 @@
+    1  sudo apt-get -y install docker
+    2  sudo systemctl start docker
+    3  sudo systemctl enable docker
+    4  sudo systemctl status docker
+    5  whoami
+    6  sudo useradd -a -G docker ubuntu
+    7  sudo usermod -a -G docker ubuntu
+    8  docker ps
+    9  id -a
+   10  docker pull httpd:2.4
+   11  docker info
+   12  docker images
+   13  docker help
+   14  docker run -d --name testapache httpd:2.4
+   15  docker ps
+   16  docker stop testapache 
+   17  docker ps
+   18  docker ps -a
+   19  docker inspect testapache 
+   20  docker start testapache 
+   21  docker inspect testapache 
+   22  sudo ls -la/proc/29979/ns
+   23  sudo ls -la /proc/29979/ns
+   24  docker inspect testapache | grep -i pid
+   25  docker exec -it testapache /bin/bash
+   26  docker stop testapache 
+   27  docker rm testapache
+   28  ps -a
+   29  docker ps -a
+   30  history
+   31  history
+   32  git clone git@github.com:Nikhil2803/DockerApps.git
+   33  git clone git@github.com:Nikhil2803/DockerApps.git
+   34  git clone git@github.com:Nikhil2803/DockerApps.git
+   35  git clone git@github.com:Nikhil2803/DockerApps.git
+   36  git clone git@github.com:Nikhil2803/DockerApps.git
+   37  git clone https://github.com/Nikhil2803/DockerApps.git
+   38  docker build -t nikhil2803/DemoApp:1.0 DockerApps/frontend/
+   39  docker build -t nikhil2803/Demoapp:1.0 DockerApps/frontend/
+   40  docker build -t nikhil2803/demoapp:1.0 DockerApps/frontend/
+   41  docker images
+   42   docker inspect demoapp
+   43   docker inspect nikhil2803/demoapp:1.0 
+   44  docer run -d -p 9000:80 --name testdemoapp nikhil2803/demoapp:1.0
+   45  docker run -d -p 9000:80 --name demoapp-fe nikhil2803/demoapp:1.0
+   46  docker images
+   47  docker ps
+   48  docker logs demoapp-fe 
+   49  curl http://localhost:9000
+   50  hostname
+   51  docker inspect demoapp-fe 
+   52  docker top demoapp-fe 
+   53  docker stat
+   54  docker state
+   55  docker stats demoapp-fe 
+   56  pwd
+   57  docker history nikhil2803/demoapp:1.0 
+   58  docker stop demoapp-fe 
+   59  docker ps
+   60  docker ps -a
+   61  docker rm demoapp-fe 
+   62  docker ps -a
+   63  docker run -dit -p 9000:80 --name demoapp-fe -v logvol:/var/log -v /home/ubuntu:/home/ubuntu nikhil2803/demoapp /bin/bash/
+   64  docker run -dit -p 9000:80 --name demoapp-fe -v logvol:/var/log -v /home/ubuntu:/home/ubuntu nikhil2803/demoapp:1.0 
+   65  docker exec it demoapp-fe /bin/bash
+   66  docker ps
+   67  docker exec -it demoapp-fe /bin/bash
+   68  cd /var/lib/docker/volumes/logvol/_data/
+   69  ls -lrt
+   70  df -h .
+   71  docker inspect demoapp-fe
+   72  docker exec -it demoapp-fe /bin/bash/
+   73  docker exec -it demoapp-fe /bin/bash
+   74  sudo bash
+   75  docker stop demoapp-fe 
+   76  docker ps
+   77  docker ps -a
+   78  docker rm demoapp-fe 
+   79  docker ps -a
+   80  docker volume ls
+   81  docker volume rm logvol
+   82  docker volume ls
+   83  docker run -dit -p 9000:80 --name demoapp-fe -v logvol:/var/log -v /home/ubuntu:/home/ubuntu nikhil2803/demoapp:1.0
+   84  docker run -d --name logagent -v logvol:/mnt/log:ro mohanraz81/mycart-frontend-logagent:1.0
+   85  docker ps
+   86  docker ps
+   87  docker stop logagent demoapp-fe 
+   88  docker rm logagent demoapp-fe 
+   89  docker volume ls
+   90  docker volume rm logvol 
+   91  docker network ls
+   92  docker network create --driver bridge --subnet 10.1.0.0/16 --gateway 10.1.0.1 demonw
+   93  docker network ls
+   94  docker inspect demonw
+   95  docker run -dit -p 9000:80 --name demoapp-fe --net demonw nikhil2803/demoapp:1.0
+   96  docker run -d -p 9000:80 --name demoapp-db --net demonw nikhil2803/demoapp:1.0
+   97  docker run -d  --name demoapp-db --net demonw nikhil2803/demoapp:1.0
+   98  docker ps
+   99  docker ps -a
+  100  docker rm nikhil2803/demoapp-db
+  101  docker rm demoapp-db
+  102  docker ps -a
+  103  docker run -d  --name demoapp-db --net demonw nikhil2803/demoapp:1.0
+  104  docker ps
+  105  docker exec it demoapp-fe /bin/bash
+  106  ping demoapp-db
+  107  docker ping demoapp-db
+  108  ping demoapp-db
+  109  docker exec -it demoapp-fe /bin/bash
+  110  docker stop demoapp-db 
+  111  docker stop demoapp-fe 
+  112  docker rm demoapp-db
+  113  docker rm demoapp-fe 
+  114  docker ps -a
+  115  cd DockerApps/
+  116  git diff
+  117  cd ..
+  118  pwd
+  119  ls -lrt
+  120  cd DockerApps/
+  121  git diff --name-only
+  122  git diff --name-only HEAD
+  123  git ls-files
+  124  git ls-files --other
+  125  git add -A
+  126  git ls-files
+  127  git commit -m "Docker File & index.php for Test App"
+  128  git config --global user.name "Nikhil Khatri"
+  129  git config --global user.email nikhil.k320@gmail.com
+  130  git commit --amend --reset-author
+  131  git commit --amend --reset-author -m "Updated user"
+  132  git push origin
+  133  git push origin
+  
