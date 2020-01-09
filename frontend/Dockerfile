@@ -1,8 +1,11 @@
-#Docker file for apache Demo
+#---Docker file for apache Demo
+#ARG MyVar -> used to create variable and pass it to the shell script, value for the argument is passed during docker build time. ARG must come before FROM
 FROM centos:7
 MAINTAINER nikhil.k320@gmail.com
 RUN yum -y update
-#Execution with scripts
+#USER apache -> used to switch the user for running subsequent commands
+#WORKDIR /apps -> to change the working directory
+#---Execution with scripts
 #ADD scripts /opt/
 #RUN chmod 755 /opt/*
 #RUN /opt/packages/
