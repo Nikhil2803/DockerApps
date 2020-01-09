@@ -1,3 +1,4 @@
+----------Install Docker----------------------------
     1  sudo apt-get -y install docker
     2  sudo systemctl start docker
     3  sudo systemctl enable docker
@@ -7,10 +8,12 @@
     7  sudo usermod -a -G docker ubuntu
     8  docker ps
     9  id -a
+-----------Pull Image from Docker Hub---------------
    10  docker pull httpd:2.4
    11  docker info
    12  docker images
    13  docker help
+-----------Creating Container with image-------------
    14  docker run -d --name testapache httpd:2.4
    15  docker ps
    16  docker stop testapache 
@@ -22,6 +25,7 @@
    22  sudo ls -la/proc/29979/ns
    23  sudo ls -la /proc/29979/ns
    24  docker inspect testapache | grep -i pid
+-----------Getting Inside Container's Bash----------
    25  docker exec -it testapache /bin/bash
    26  docker stop testapache 
    27  docker rm testapache
@@ -41,6 +45,7 @@
    41  docker images
    42   docker inspect demoapp
    43   docker inspect nikhil2803/demoapp:1.0 
+---------Creating a container with port forwarding ---------------------
    44  docer run -d -p 9000:80 --name testdemoapp nikhil2803/demoapp:1.0
    45  docker run -d -p 9000:80 --name demoapp-fe nikhil2803/demoapp:1.0
    46  docker images
@@ -49,6 +54,7 @@
    49  curl http://localhost:9000
    50  hostname
    51  docker inspect demoapp-fe 
+--------Checking processes running inside container---------------------
    52  docker top demoapp-fe 
    53  docker stat
    54  docker state
@@ -60,11 +66,13 @@
    60  docker ps -a
    61  docker rm demoapp-fe 
    62  docker ps -a
+--------Creating a container with Local volume & bindmount volume-------
    63  docker run -dit -p 9000:80 --name demoapp-fe -v logvol:/var/log -v /home/ubuntu:/home/ubuntu nikhil2803/demoapp /bin/bash/
    64  docker run -dit -p 9000:80 --name demoapp-fe -v logvol:/var/log -v /home/ubuntu:/home/ubuntu nikhil2803/demoapp:1.0 
    65  docker exec it demoapp-fe /bin/bash
    66  docker ps
    67  docker exec -it demoapp-fe /bin/bash
+--------Path for local volume on Base Machine---------------------------
    68  cd /var/lib/docker/volumes/logvol/_data/
    69  ls -lrt
    70  df -h .
@@ -86,12 +94,15 @@
    86  docker ps
    87  docker stop logagent demoapp-fe 
    88  docker rm logagent demoapp-fe 
+-----Listing all Volumes & removing it---------------------------
    89  docker volume ls
    90  docker volume rm logvol 
    91  docker network ls
+-----Creating a brdige type of network--------------------------
    92  docker network create --driver bridge --subnet 10.1.0.0/16 --gateway 10.1.0.1 demonw
    93  docker network ls
    94  docker inspect demonw
+-----Running a Container on created network---------------------
    95  docker run -dit -p 9000:80 --name demoapp-fe --net demonw nikhil2803/demoapp:1.0
    96  docker run -d -p 9000:80 --name demoapp-db --net demonw nikhil2803/demoapp:1.0
    97  docker run -d  --name demoapp-db --net demonw nikhil2803/demoapp:1.0
@@ -131,4 +142,42 @@
   131  git commit --amend --reset-author -m "Updated user"
   132  git push origin
   133  git push origin
+ -------------Kubernetes----------------------------------------
+  142  dig ns student18.courseandlabs.com
+  143  git clone https://github.com/mohanraz81/kube_install_kops.git
+  144  df -h
+  145  docker images
+  146  cd kube_install_kops/
+--------------Creating Kubernetes cluster----------------------
+  147  ./create_cluster.sh  student18.courseandlabs.com cw-role
+  148  ./get_cluster.sh 
+--------------List Created Nodes-------------------------------
+  149  kubectl get nodes
+  150  cat ~/.kube/config 
+  151  cd ..
+  152  docker images
+--------------Pushing Image to Docker Hub---------------------
+  153  docker login
+  154  docker login
+  155  docker login
+  156  docker push nikhil2803/demoapp:1.0
+  157  git clone https://github.com/mohanraz81/myapp1808.git
+--------------Create a name space with name given in deploy.yaml---
+  158  kubectl create namespace demoapp
+--------------Run POD within Container(defined in deploy.yaml)-----
+  159  kubectl apply -f DockerApps/deploy/frontend/deploy.yaml 
+  160  kubectl apply -f DockerApps/deploy/frontend/deploy.yaml 
+  161  kubectl get deploy -n demoapp
+  162  kubectl describe deploy -n demoapp
+  163  kubectl get pods -n demoapp
+  164  kubectl describe pods -n demoapp
+--------------Running Loadbalancer Service -----------------------
+  165  kubectl apply -f DockerApps/deploy/frontend/service.yaml 
+  166  kubectl get svc -n demoapp
+  167  kubectl get svc -o wide -n demoapp
+  168  docker ps
+  169  docker ps -a
+  170  cd ./kube_install_kops/
+-------------Deleting cluster created by Kubernetes--------------
+  171  ./delete_cluster.sh 
   
