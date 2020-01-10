@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: demoappfe
-        image: nikhil2803/demoapp:2.0
+        image: nikhil2803/demoapp:1.0
         imagePullPolicy: Always
         ports:
         - containerPort: 80
