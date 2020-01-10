@@ -1,3 +1,4 @@
+####################### Docker #######################
 ----------Install Docker----------------------------
     1  sudo apt-get -y install docker
     2  sudo systemctl start docker
@@ -142,7 +143,7 @@
   131  git commit --amend --reset-author -m "Updated user"
   132  git push origin
   133  git push origin
- -------------Kubernetes----------------------------------------
+####################### Kubernetes #######################
   142  dig ns student18.courseandlabs.com
   143  git clone https://github.com/mohanraz81/kube_install_kops.git
   144  df -h
@@ -180,4 +181,47 @@
   170  cd ./kube_install_kops/
 -------------Deleting cluster created by Kubernetes--------------
   171  ./delete_cluster.sh 
-  
+   215  cd kube_install_kops/
+  216  ./create_cluster.sh student19.courseandlabs.com cw_role
+  217  ./delete_cluster.sh 
+  218  ./create_cluster.sh student19.courseandlabs.com cw_role
+  219  rm -rf ~/.aws
+  220  ./create_cluster.sh  student18.courseandlabs.com cw-role
+  221  ./create_cluster.sh  student18.courseandlabs.com cw-role
+  222  cd ..
+------------Run the all YAML Files from namespace folder--------
+  223  kubectl apply -f DockerApps/deploy/namespace/
+  224  kubectl describe namespace demoapp
+------------Run the all YAML Files from frontend folder--------
+  225  kubectl apply -f DockerApps/deploy/frontend/
+------------Get cluster details---------------------------------
+  228  ./kube_install_kops/get_cluster.sh 
+------------Get service details of demoapp namespace-----------
+  231  kubectl get svc -o wide -n demoapp
+------------Setting namespace in global config, to avoid passing it in every command----
+  232  kubectl config set-context $(kubectl config current-context) --namespace=demoapp
+  233  kubectl config view
+  234  kubectl get all
+  235  kubectl get service -o wide
+  236  kubectl get service -o wide
+------------Describing the service created by service.yaml--------
+  237  kubectl describe service api
+------------Building Docker Image from frontend-------------------
+  239  docker build -t nikhil2803/demoapp:2.0 DockerApps/frontend/
+------------Pushing Docker Image to Docker Hub--------------------
+  240  docker push nikhil2803/demoapp:2.0
+-----------Start Watching Kubernetes Endpoints-------------------------
+  241  kubectl get endpoint -w
+-----------Applying yamls(Deploying replicas,container,pods),(services-LoadBalancer),(HPA-Autoscaling)-------
+  242  kubectl apply -f DockerApps/deploy/frontend/
+-----------Start Watching Kubernetes Service-------------------------
+  243  kubectl get service -o wide
+-----------Checking kubernetes deployment history of any image-------
+  244  kubectl rollout history deloyment.v1beta1.apps/demoapp-fe
+  245  kubectl rollout history delpoyment.v1beta1.apps/demoapp-fe
+  246  kubectl rollout history deployment.v1beta1.apps/demoapp-fe
+-----------RollBack deployed image to previous revision-------
+  247  kubectl rollout undo deployment.v1beta1.apps/demoapp-fe
+  248  kubectl rollout history deployment.v1beta1.apps/demoapp-fe
+-----------Checking kubernetes deployment history of any image-For specific revision-------
+  249  kubectl rollout history deployment.v1beta1.apps/demoapp-fe --revision=3
